@@ -12,9 +12,8 @@ const style = {
     // paddingRight: '2.5vh',
     margin: '0 auto'
   },
-
   heroStart: {
-    display: 'block',
+    display: 'flex',
     backgroundImage: 'url(' + imgURL + ')',
     backgroundSize: 'cover',
     width: '100%',
@@ -25,11 +24,21 @@ const style = {
     margin: '0 auto',
     fontColor: '#3b464b',
     fontWeight: '400',
-    fontSize: '18px'
+    fontSize: '18px',
+    flexGrow: 1,
+    // -webkitFilter: 'blur(5px)',
+    // -mozFilter: 'blur(5px)',
+    // -oFilter: 'blur(5px)',
+    // -msFilter: 'blur(5px)',
+    filter: 'blur(5px)'
   },
 
   heroInner: {
-    display: 'table',
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
     minHeight: '70vh',
     width: '100%',
     paddingTop: '8vh',
@@ -42,13 +51,14 @@ const style = {
 
   leftBox: {
     top: '50%',
-    display: 'table-cell',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    width: '50%',
+    display: 'flex',
+    alignItems: 'center',
     paddingTop: '1vh',
     paddingLeft: '2.5vw',
     paddingRight: '2.5vw',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    color: 'white',
+    flexGrow: 999
   },
 
   navbar: {
@@ -61,12 +71,31 @@ const style = {
 
   rightBox: {
     top: '50%',
-    display: 'table-cell',
-    width: '50%',
+    display: 'flex',
     paddingTop: '1vh',
     paddingLeft: '2.5vw',
     paddingRight: '2.5vw',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    flexGrow: 1,
+    width: '40%'
+  },
+  internal: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignContent: 'flex-end',
+    padding: '20px',
+    fontSize: '1.5em',
+    width: '100%'
+  },
+
+  buttonContainer: {
+    display: 'flex',
+    width: '80%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   },
 
   phonePhoto: {
@@ -75,15 +104,17 @@ const style = {
     padding: '5px'
   },
   midSect: {
-    display: 'block',
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: '#0f5959',
     width: '100%',
-    paddingTop: '2vh',
-    paddingBottom: '2vh',
+    paddingTop: '1vh',
+    paddingBottom: '1vh',
     margin: '0 auto',
     fontColor: '#3b464b',
     fontWeight: '400',
-    fontSize: '12px'
+    fontSize: '12px',
+    alignItems: 'flex-end'
   },
   topicLeft: {
     display: 'inline-block',

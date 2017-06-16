@@ -87,36 +87,19 @@ h1, h3, h4, h5, p {
   Custom styles
   ========================================
 */
-/*
-body {
-  color: #888;
-  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background:  #f9fbfc;
-}
+
 
 h1, h2, h3, h4 {
-  color: #648880;
 }
 
 h1 {
-  font-size: 36px;
-  line-height: 44px;
+  font-size: 6rem;
 }
 h2 {
-  font-size: 24px;
-  line-height: 44px;
+  font-size: 5rem;
 }
 h3 {
-  font-size: 21px;
-}
-h4 {
-  font-size: 18px;
-}
-
-h5 {
-  color: #a9b2b9;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 3rem;
 }
 
 strong {
@@ -125,7 +108,7 @@ strong {
 cite, em {
   font-style: italic;
 }
-*/
+
 /*
   ========================================
   Links
@@ -167,6 +150,9 @@ a.nav-action:hover {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
+body {
+  height: 100vh;
+}
 
 /*.container {
   height: 100vh;
@@ -176,9 +162,12 @@ a.nav-action:hover {
   padding-right: 2.5vh;
   margin: 0 auto;
 }*/
-
-
-
+.mainContainer,
+.innerContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 /*
 ========================================
 Components
@@ -193,7 +182,51 @@ Components
   border: 1px solid;
 }
 
+/*.backgroundImage:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
 
+  display: block;
+  background-image: url('/assets/images/bigstock-Group-Of-Friends-Meeting-For-L-59135003.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}*/
+
+
+.backgroundImage {
+  background-image: linear-gradient(to bottom right, rgba(0,0,0,0.8) 0%, rgba(255,255,255,0.1) 100%), url('/assets/images/bigstock-Group-Of-Friends-Meeting-For-L-59135003.jpg');
+  background-size: cover;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 2vh 2.5vw 3vh;
+  margin: 0 auto;
+  font-color: #3b464b;
+  font-weight: 400;
+  font-size: 18px;
+  flex-grow: 1;
+}
+/*.backgroundImage:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
+  opacity: .6;
+  z-index: 0;
+}*/
 
 /* User Main Page */
 .usermain-div {
@@ -201,6 +234,7 @@ Components
   border: 1px solid;
 }
 /*******************/
+
 
 /* User Summary */
 .usersummary-div {
@@ -288,12 +322,40 @@ Components
   margin-top: 10px;
 }
 
-.ubte-desc-td" {
+.ubte-desc-td {
   padding: 10px;
 }
 
 /*******************/
 
+/*
+========================================
+Buttons
+========================================
+*/
+
+.main-button {
+  display: inline-block;
+  flex: 1;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 10px;
+  margin: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.main-button:hover {
+  background-color: white;
+  color: black;
+}
+button::before,
+button::after {
+    content: '';
+    flex: 1 0 auto;
+}
 
 
 

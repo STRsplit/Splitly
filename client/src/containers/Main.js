@@ -4,37 +4,38 @@ import MTP from 'material-ui/styles/MuiThemeProvider';
 import MainNavBar from './MainNavBar'
 import Style from './mainPage-css';
 
-const { container, heroStart, midSect, leftBox, navbar, rightBox, footer, heroInner, phonePhoto, topicLeft, topicRight, divider, footList } = Style
+const { container, heroStart, midSect, buttonContainer, internal, leftBox, navbar, rightBox, footer, heroInner, phonePhoto, topicLeft, topicRight, divider, footList } = Style
 
 class Main extends Component {
   componentWillMount(){
     console.log('main', this.props)
   }
 
-/* * * * BELOW IS A LINK THAT SAYS USER PAGE ... THIS IS CURRENTLY SET TO NAVIGATE TO THE MAIN USERPAGE (WHICH SHOULD ONLY BE ACCESSIBLE IF THEY ARE LOGGED IN / VALID SESSION ... BECAUSE WE'RE NAVIGATING THROUGH A SINGLE PAGE APP, SIMPLY TYPING IN THE URL WON'T TAKE YOU TO THE DESIRED PAGE. THIS LINK CAN BE USED FOR TESTING PURPOSES, IN PARTICULAR, FOR TESTING OF ROUTE PROTECTION DUE TO SESSION VALIDITY ETC. YOU CAN ALSO CHANGE THE URL ROUTE (e.g., HOME/BILLHISTORY) TO ENSURE THAT THESE ROUTES ARE STILL PROTECTED. (hint: they are) * * * */
+
   render() {
 
     return (
-      <div>
-      <MainNavBar signedIn={this.props.signedIn} onSignIn={this.props.onSignIn} />
-        <div style={heroStart}>
-        <div style={heroInner}>
-          <div style={leftBox}>
-            <h2 style={{"textAlign": "center"}}>Splitly</h2>
-            <h3 style={{"textAlign": "center", "fontSize": "14px"}}>Split checks, without the awkwardness.</h3>
-            <div style={{"display": "block"}}>
-            <img style={phonePhoto} src="../assets/images/Iphone-PNG-Image.png"/>
+      <div className="innerContainer">
+        <MainNavBar signedIn={this.props.signedIn} onSignIn={this.props.onSignIn} />
+          <div className='backgroundImage'>
+          <div style={heroInner}>
+            <div style={leftBox}>
+              <div style={internal}>
+                <h2>Splitly</h2>
+                <h3>Split checks, without the awkwardness.</h3>
+                <p>Introducing Splitly, an easier way to keep track of and settle bills among friends. </p>
+                  <div style={buttonContainer}>
+                    <button className="main-button">Signup</button>
+                    <button className="main-button">Login</button>
+                  </div>
+              </div>
             </div>
-            <p style={{"textAlign": "center", "fontSize": "14px"}}> Introducing Splitly, an easier way to keep track of and settle bills among friends. </p>
+            <div style={rightBox}/>
           </div>
-          <div style={rightBox}/>
         </div>
-      </div>
-      <div style={midSect}>
-      <h2 style={{"textAlign": "center", "fontSize": "30px"}}>Splitly</h2>
-      <h3 style={{"textAlign": "center", "fontSize": "18px"}}>Split checks, without the awkwardness.</h3>
-
-      </div>
+        <div style={midSect}>
+          <p>Splitly - Split checks, without the awkwardness.</p>
+        </div>
       </div>
     )
   }
@@ -42,24 +43,4 @@ class Main extends Component {
 
 export default Main;
 
-
-
-
-
-/*
-    return (
-      <div>
-
-
-
-        <Row>
-          <div style={footer}>
-                {this.props.children}
-          </div>
-        </Row>
-      </div>
-    );
-  }
-}
-*/
 

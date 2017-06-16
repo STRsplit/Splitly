@@ -30,25 +30,32 @@ class App extends Component {
 
 
   isLoggedIn (){
-    return true
     // return this.state.signedIn;
     if (this.state.signedIn) {
       return true;
-    } {
-      $.ajax({
-        type: 'GET',
-        url: '/users/checkStatus',
-        contentType: 'application/json',
-        success: (data) => {
-          console.log('WORKED', data);
-          this.setState({signedIn: data.signedIn, user: data.user});
-        },
-        error: (error) => {
-          console.log('checkUserLogged: user has no session');
-          // this.setState({accountExistsMessage: 'Account already exists. Use different username or email.'});
-        }
-      });
-    }
+    } else {
+      axios.get('/users/checkStatus')
+      .then(data => {
+        const { signedIn, user } = data;
+        this.setState({signedIn, user})
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      // $.ajax({
+      //   type: 'GET',
+      //   url: '/users/checkStatus',
+      //   contentType: 'application/json',
+      //   success: (data) => {
+      //     console.log('WORKED', data);
+      //     this.setState({signedIn: data.signedIn, user: data.user});
+      //   },
+      //   error: (error) => {
+      //     console.log('checkUserLogged: user has no session');
+      //     // this.setState({accountExistsMessage: 'Account already exists. Use different username or email.'});
+      //   }
+      // });
+      }
   }
 
   _onSignIn(signIn, user) {
@@ -108,7 +115,7 @@ class App extends Component {
   render () {
     return (
       <Router>
-        <div>
+        <div className="mainContainer">
           <Route exact path='/' render={this.checkSession.bind(this)}/>
           <Route path='/hello' render={this.redirectToMain.bind(this)} />
           <Route path='/home' component={UserPage}/>

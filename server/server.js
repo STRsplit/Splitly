@@ -51,13 +51,13 @@ app.use(session({
 //     res.status(200).json(response)
 //   })
 // })
-// app.get('/*', helper.checkUser);
+app.get('/*', helper.checkUser);
 app.post('/users/submitbill', helper.addBill);
 app.get('/users/checkStatus', helper.checkUser);
 app.get('/users/logout', helper.logoutUser);
 app.post('/users/signup', helper.userSignUp);
 app.post('/users/signin', helper.signInUser);
 
-app.listen(9000, () => {
-  console.log('Ready and listening on port 9000')
+app.listen(8080, () => {
+  console.log('Ready and listening on port 8080')
 })

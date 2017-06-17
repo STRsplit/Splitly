@@ -55,7 +55,7 @@ class AddBillForm extends Component {
         </FormGroup>
         <FormGroup>
           <Col>
-            <Button type='Add New Bill' onClick={this.handleAddBill}>
+            <Button type='button' onClick={this.handleAddBill}>
               Add New Bill
             </Button>
           </Col>

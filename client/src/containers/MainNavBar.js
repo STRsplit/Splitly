@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
-import NewBillButton from '../components/NewBillButton'
-import FriendsButton from '../components/FriendsButton'
+import { Link } from 'react-router-dom';
+import { Navbar, FormGroup, Nav, FormControl, Button, Overlay, Popover, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import BaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import UserNavBar from './UserNavBar';
 
 import NavDropMenu from '../components/NavDropMenu'
 import Login from '../containers/Login'
 // import { Link } from 'react-router-dom';
 // import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-// import FlatButton from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton';
 
 class MainNavBar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      signedIn: this.props.signedIn
+      signedIn: true
     };
 
     this._handleLogin = this._handleLogin.bind(this);
@@ -41,6 +44,9 @@ class MainNavBar extends Component {
     // } else {
     //   displayNode = loginNode;
     // }
+    let navItems = this.state.signedIn ? ['Logout', 'Upload Bill', 'Add Friends'] : ['About', 'About2', 'About3'];
+  
+    
 
     return (
       <Navbar fluid className="navbar navbar-fixed-top navbar-default">
@@ -50,8 +56,13 @@ class MainNavBar extends Component {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>        
-          <Login onSignIn={this._handleLogin}   />
+        <Navbar.Collapse>
+        <Nav>
+        {navItems.map((item, idx) => {
+          return <NavItem eventKey={idx + 1} href="#"><FlatButton label={item}></FlatButton></NavItem>     
+        })}
+
+        </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
@@ -63,21 +74,7 @@ export default MainNavBar
 
 /* Backup for now
 
-return (
-  <Toolbar>
-    <ToolbarGroup>
-      <ToolbarTitle text='Splitly' />
-    </ToolbarGroup>
-    <ToolbarGroup>
-      <Link to='/signup'>
-      <FlatButton label='Join' />
-      </Link>
-      <Link to='/login'>
-      <FlatButton label='Log In' secondary={true} />
-      </Link>
-    </ToolbarGroup>
-  </Toolbar>
+ // <Login onSignIn={this._handleLogin}   />
 
-);
 
 */

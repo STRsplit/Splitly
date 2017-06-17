@@ -77,7 +77,7 @@ class UserPage extends Component {
 
     return (
       <Router>
-      <div>
+      <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
         <UserNavBar logOut={logOut.bind(this)} uploadBill={uploadBill.bind(this)}/>
         {/* * * THIS COMPONENT BELOW THE NAV BAR WILL CONDITIONALLY RENDER * * * */}
         <Route exact path='/home' component={ UserBillsTable }/>

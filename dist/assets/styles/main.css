@@ -165,6 +165,7 @@ body {
 .mainContainer,
 .innerContainer {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
 }
@@ -175,6 +176,10 @@ Components
 */
 * {
   font-family: 'Roboto', sans-serif;
+}
+*:after,
+*:before {
+  content: none ! important;
 }
 
 .app-header {
@@ -353,30 +358,48 @@ Buttons
 }
 button::before,
 button::after {
-    content: '';
-    flex: 1 0 auto;
+    content: '' ! important;
+    flex: 1 0 auto !important;
 }
+/*
+========================================
+NavBar
+========================================
+*/
+/*.container-fluid {
+  display: flex;
+  flex: 1 1 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.navBar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1 1 100%;
+}*/
+/*.navbar-header {
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ul.navbar-nav button {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .navbar-nav {
+      float: right;
+      margin: 0;
+  }
+}
+@media (max-width: 768px) {
+  ul.navbar-nav {
+      margin: 50px 0px 0px;
+  }
+}

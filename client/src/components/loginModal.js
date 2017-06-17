@@ -1,35 +1,41 @@
 import React, { Component } from 'react'
+import { Modal, Button } from 'react-bootstrap'
+import LoginPage from '../containers/LoginPage'
 
-
-const LoginModal = (props) => {
-  getDefaultProps: function () {
-    return {
-      title: 'Error'
-    };
+const style = {
+  modalContainer: {
+     position: 'relative',
+     height: '200px'
   },
-
-  propTypes: {
-    title: React.PropTypes.string,
-    message: React.PropTypes.string.isRequired
-  },
-
-  componentDidMount: function () {
-    const modal = new Foundation.Reveal($('#error-modal'));
-    modal.open();
-  },
-
-  render: function() {
-    let {title, message} = this.props;
-    return (
-  <div className="reveal tiny text-center" id="error-modal" data-reveal="">
-    <h4>{title}</h4>
-    <p>{message}</p>
-    <button className="button hollow" data-close="" type="button">
-      Close
-    </button>
-  </div>
-  );
+  modalContainer: {
+      position: 'absolute'
   }
 }
 
-module.exports = LoginModal;
+const LoginModal = (props) => {
+
+    return (
+      <div className="modal-container" style={style.modalContainer}>
+
+        <Modal
+          show={props.show}
+          onHide={close}
+          container={this}
+          aria-labelledby="contained-modal-title"
+        >
+          <Modal.Header closeButton onClick={props.handleClick}>
+            <Modal.Title id="contained-modal-title">Contained Modal</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+           <LoginPage />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={props.handleClick}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+};
+
+
+export default LoginModal

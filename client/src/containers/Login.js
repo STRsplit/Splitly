@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router-dom';
-import { Navbar, FormGroup, FormControl, Button, Overlay, Popover } from 'react-bootstrap'
+import { Navbar, FormGroup, Nav, FormControl, Button, Overlay, Popover, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 
 class Login extends Component {
   constructor(props) {
@@ -52,7 +52,10 @@ class Login extends Component {
   render() {
     return (
       <Navbar.Form pullRight>
-        <FormGroup>
+      <Nav>
+      <NavItem eventKey={1} href="#">About</NavItem>
+    </Nav>
+        <FormGroup style={{'paddingTop': '8px'}}>
           <FormControl type='text' placeholder='Username'
             inputRef={ref => { this.signInUsername = ref; }} required
           />

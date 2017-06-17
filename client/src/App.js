@@ -9,6 +9,7 @@ import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
 import Main from './containers/Main';
 
+
 /* * * * I DIDN'T TAKE OUT ANY OF THESE FUNCTIONS, THOUGH I CHANGE THE NAME OF ONE - ISLOGGEDIN()
 I'LL LET YOU FINALIZE THE AUTHENTICATION SPECIFICS, THOUGH PROVIDED ISLOGGEDIN RETURNS TRUE OR FALSE, THE ROUTING WILL WORK.
 
@@ -20,7 +21,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      signedIn: false,
+      signedIn: true,
       user: null
     }
     // this.isLoggedIn();

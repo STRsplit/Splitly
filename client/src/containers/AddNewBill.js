@@ -181,7 +181,7 @@ class AddNewBill extends Component {
           label={this.state.billAction}
           onTouchTap={this.handleToggle.bind(this)}
         />
-        <Drawer width={'700'} openSecondary={true} open={this.state.open} >
+        <Drawer width={700} openSecondary={true} open={this.state.open} >
         <img style={img} src={uploadedBill}/>
         </Drawer>
       </div>

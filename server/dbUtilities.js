@@ -1,10 +1,3 @@
-//request-handlers
-//multer stores img file, look into how to store reference to it in mongo
-//path vs actual image
-//attaches image info in two properties - request.file.path - and file
-//unique pathname exists for the image
-//helper function to destroy temp files
-
 const request = require('request');
 const db = require('./dbConfig');
 const path = require('path')
@@ -12,24 +5,9 @@ const User = require('./models/user');
 const Bill = require('./models/bills');
 const Debtor = require('./models/debtor');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
-// const mongoose = require('mongoose');
-// mongoose.Promise = require('bluebird');
 
-//Password only needed if we aren't using Facebook oAuth.
-  // MVP just using no oAuth and no encrypted PW.
-
-// exports.renderIndex = function(req, res){
-//   res.render('index');
-// }
-
-// exports.signUpUser = function(req, res){
-//   res.render('signUp');
-// }
-
-// exports.loginInUser = function(req, res){
-//   res.render('login');
-// }
 
 exports.checkUser = function(req, res){ 
   let username = req.session.username;
@@ -88,62 +66,82 @@ exports.userBills = function(req, res){
 };
 
 
-exports.signInUser = function(req, res) {
-  let username = req.body.username;
-  let pw = req.body.password;
+const generateHashedPW = async (pw) => {
+  try {  
+    let salt = await bcrypt.genSalt(10);
+    let hash = await bcrypt.hash(pw, salt);
+    return hash;
+  } catch(err){
+    console.log(err)
+  }
+};
 
+exports.signInUser = async function(req, res) {
+  let { username, password } = req.body
+  if(req.session.username){
+    res.redirect('/profile/' + req.session.username);
+  }
 
-  // if(req.session.username){
-  //   res.redirect('/profile/' + req.session.username);
-  // }
-
-   User.findOne({username: username, password: pw})
+   User.findOne({username: username})
    .exec(function(err, user){
     if(user === null) {
       console.log('no user found on signin');
       // res.redirect('/login');
       res.sendStatus(500);
     } else {
-      console.log('user found on signin', user);
-      req.session.username = user.username;
-      req.session.userID = user.id;
-      exports.createUserStorage(user.username);
-      // res.redirect('/profile/' + req.session.username);
-      res.send(user);
+      bcrypt.compare(password, user.password, function(err, res) {
+        if(err) throw Error; 
+        else if(res === true){
+          req.session.username = user.username;
+          req.session.userID = user.id;
+          exports.createUserStorage(user.username);
+          res.send(user)
+        }
+      })
     }
+   })
+   .catch(err => {
+    console.log(err);
+    res.status(500).send(err);
    })
 };
 
 
-exports.userSignUp = function(req, res) {
-  let username = req.body.username;
-  let email = req.body.email;
+exports.userSignUp = async function(req, res) {
+  let { email, firstName, lastName, password, username } = req.body;
 
-   User.findOne({username: username, email: email})
+  password = await generateHashedPW(password)
+    
+  console.log(password);
+
+    User.findOne({username: username, email: email})
    .exec(function(err, user){
-    if(user === null) {
-      let newUser = new User({
-        username: req.body.username,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: req.body.password,
-        email: req.body.email,
-        bills: []
-      });
-      newUser.save(function(err, newUser){
-        if(err){
-          res.status(500).send(err);
-        } else {
-          req.session.username = newUser.username;
-          req.session.userID = newUser.id;
-          res.status(200).send(newUser);
-        }
-      });
-    } else {
-      console.log('Account already exists.');
-      res.redirect('/');
-    }
-   })
+      if(user === null) {
+        let newUser = new User({
+          username,
+          firstName,
+          lastName,
+          email,
+          password,
+          bills: []
+        });
+        newUser.save(function(err, newUser){
+          if(err){
+            res.status(500).send(err);
+          } else {
+            req.session.username = newUser.username;
+            req.session.userID = newUser.id;
+            res.status(200).send(newUser);
+          }
+        });
+      } else {
+        console.log('Account already exists.');
+        res.redirect('/');
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
 };
 
 
@@ -187,32 +185,36 @@ exports.selectDebtors = function(debtors){
 
 }
 
-// on addBill ajax request, please create an object with bill property and  username
 exports.addBill = function(req, res) {
-  let debtors = exports.selectDebtors(req.body.bill.debtors);
+  let { bill } = req.body;
+  let { username } = req.session;
+  let { billName, billDate, code, totalAmount, totalDebt, image } = bill;
+  let debtors = exports.selectDebtors(bill.debtors);
   Promise.all(debtors)
-  .then(values => {
-    let debtorArr = [];
-    const debtorsInfo = req.body.bill;
+  .then(debtors => {
+    let debtorArr = debtors.map((debtor, idx) => {
+      return {debtorId: debtor._id, owed: bill[idx].owed, paidAmount: 0}
+    })
+    console.log(debtorArr)
     // adding new properties to the debtors objects
-    for ( var i = 0; i < values.length; i++ ) {
-      debtorArr.push({debtorId: values[i]._id, owed: debtorsInfo.debtors[i].owed, paidAmount: 0});
-    }
+    // for ( var i = 0; i < values.length; i++ ) {
+    //   debtorArr.push({debtorId: values[i]._id, owed: debtorsInfo.debtors[i].owed, paidAmount: 0});
+    // }
 
     let newBill = new Bill({
-      name: debtorsInfo.billName,
-      date: debtorsInfo.billDate,
-      owner: req.session.username,
-      code: debtorsInfo.code,
-      amount: debtorsInfo.totalAmount,
-      debt: debtorsInfo.totalDebt,
-      image: debtorsInfo.image,
+      name: billName,
+      date: billDate,
+      owner: username,
+      code: code,
+      amount: totalAmount,
+      debt: totalDebt,
+      image: image,
       debtors: debtorArr
     });
     
     newBill.save()
     .then(newbill => {
-      User.findOne({ username: req.session.username }).exec()
+      User.findOne({ username: username }).exec()
       .then(user => {
         user.bills.push({billId: newbill._id, code: newbill.code});
         user.save()

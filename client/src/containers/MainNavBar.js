@@ -61,7 +61,6 @@ class MainNavBar extends Component {
         {navItems.map((item, idx) => {
           return <NavItem eventKey={idx + 1} href="#"><FlatButton label={item}></FlatButton></NavItem>     
         })}
-
         </Nav>
         </Navbar.Collapse>
       </Navbar>

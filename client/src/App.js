@@ -5,15 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 
 import UserPage from './containers/UserPage';
-import LoginPage from './containers/LoginPage';
-import SignupPage from './containers/SignupPage';
 import Main from './containers/Main';
-
-
-/* * * * I DIDN'T TAKE OUT ANY OF THESE FUNCTIONS, THOUGH I CHANGE THE NAME OF ONE - ISLOGGEDIN()
-I'LL LET YOU FINALIZE THE AUTHENTICATION SPECIFICS, THOUGH PROVIDED ISLOGGEDIN RETURNS TRUE OR FALSE, THE ROUTING WILL WORK.
-
-RIGHT NOW, THE ROUTES WILL AUTOMATICALLY REDIRECT TO THE USER'S PAGE IF ISLOGGEDIN RETURNS TRUE - MEANING THEY HAVE A VALID SESSION OR ARE LOGGED IN. ALL NESTED ROUTES WITHIN /HOME (e.g., HOME/BILLHISTORY, HOME/FRIENDS ETC.) ARE ALSO PROTECTED. PLEASE DON'T CHANGE THE STRUCTURE OF THESE ROUTES, AS REACT ROUTER VERSION 4 IS A BITCH :) :) :)  * * * */
 
 
 class App extends Component {
@@ -121,7 +113,6 @@ class App extends Component {
           <Route path='/hello' render={this.redirectToMain.bind(this)} />
           <Route path='/home' component={UserPage}/>
           <Route path='/home/' render={this.checkSession.bind(this)}/>
-          <Route path='/signup' component={SignupPage} />
         </div>
       </Router>
 

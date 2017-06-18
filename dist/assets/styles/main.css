@@ -403,3 +403,42 @@ ul.navbar-nav button {
       margin: 50px 0px 0px;
   }
 }
+
+.modal-body .form-horizontal .col-sm-2,
+.modal-body .form-horizontal .col-sm-10 {
+    width: 100%
+}
+.col-sm-10 {
+  width: 60%;
+}
+
+.modal-body .form-horizontal .control-label {
+    text-align: left;
+}
+.modal-body .form-horizontal .col-sm-offset-2 {
+    margin-left: 15px;
+}
+
+.modal-content {
+  display: flex;
+  /* width: 100%; */
+  flex-direction: column;
+}
+.modal-body, .modal-body-interior {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+   justify-content: space-between; 
+  width: 100%;
+}
+.form-horizontal {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  width: 80%;
+}
+
+#contained-modal-title {
+  text-transform: uppercase;
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Form, FormGroup, Col, Checkbox, Nav, ControlLabel, FormControl, Button, Overlay, Popover, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Navbar, Form, FormGroup, Col, Checkbox, Nav, ControlLabel, FormControl, Button } from 'react-bootstrap'
 
 const LoginPage = (props) => (
   <Form horizontal>

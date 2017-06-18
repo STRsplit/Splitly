@@ -21,10 +21,14 @@ class Main extends Component {
 
   handleLoginClick (e) {
     e.preventDefault();
-    console.log('got here')
+    
     let val = this.state.show
 
-    this.setState({show: !val})
+    this.setState({show: !val, type: e.target.value })
+  }
+
+  handleSignup(){
+
   }
 
 
@@ -41,9 +45,9 @@ class Main extends Component {
                 <h3>Split checks, without the awkwardness.</h3>
                 <p>Introducing Splitly, an easier way to keep track of and settle bills among friends. </p>
                   <div style={buttonContainer}>
-                    <LoginModal show={this.state.show} handleClick={this.handleLoginClick}/>
-                    <button className="main-button">Signup</button>
-                    <button className="main-button" onClick={this.handleLoginClick}>Login</button>
+                    <LoginModal type={this.state.type} show={this.state.show} handleClick={this.handleLoginClick}/>
+                    <button className="main-button" value='signup' onClick={this.handleLoginClick}>Signup</button>
+                    <button className="main-button" value='login' onClick={this.handleLoginClick}>Login</button>
                   </div>
               </div>
             </div>
